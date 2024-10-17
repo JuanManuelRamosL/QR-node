@@ -62,7 +62,86 @@ app.post('/generate', (req, res) => {
 // Ruta de confirmación
 app.get('/confirm', (req, res) => {
   const { name, lastname } = req.query;
-  res.send(`<h1>Confirmación de entrada para ${name} ${lastname}</h1>`);
+  res.send(`
+    <html>
+      <head>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+          }
+          .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+          }
+          h1 {
+            color: #4CAF50;
+            font-size: 24px;
+            margin-bottom: 20px;
+          }
+          p {
+            font-size: 18px;
+            margin-bottom: 10px;
+          }
+          .confirm-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+          }
+          .confirm-button:hover {
+            background-color: #45a049;
+          }
+          .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+          }
+          @media (max-width: 600px) {
+            .container {
+              padding: 15px;
+              width: 90%;
+            }
+            h1 {
+              font-size: 20px;
+            }
+            p {
+              font-size: 16px;
+            }
+            .confirm-button {
+              font-size: 14px;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Confirmación de entrada</h1>
+          <p>Bienvenido/a, ${name} ${lastname}.</p>
+          <p>¡Tu entrada ha sido confirmada exitosamente!</p>
+          <a href="/" class="confirm-button">Volver al inicio</a>
+          <div class="footer">
+            <p>&copy; 2024 Confirmación de Eventos</p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `);
 });
 
 // Nuevo endpoint para obtener todos los registros desde la base de datos
