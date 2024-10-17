@@ -121,28 +121,25 @@ app.get('/', (req, res) => {
 
 
 // Ruta para generar el QR
+// Ruta para generar el QR y guardar en la base de datos usando Pool
 app.post('/generate', (req, res) => {
   const { name, lastname, email, phone } = req.body;
 
-  // URL de confirmación con nombre y apellido de la persona
   const confirmationUrl = `https://qr-node-juanmanuels-projects-d39dfb8d.vercel.app/confirm?name=${encodeURIComponent(name)}&lastname=${encodeURIComponent(lastname)}`;
 
-  // Generar el código QR
   QRCode.toDataURL(confirmationUrl, async (err, qrImage) => {
     if (err) return res.send('Error al generar QR');
 
     try {
-      // Guardar en la base de datos
-      // const newQRRecord = await QRModel.create({
-      //   name,
-      //   lastname,
-      //   email,
-      //   phone,
-      //   confirmationUrl,
-      //   qrImage // Guardamos la imagen del QR como base64
-      // });
+      const query = `
+        INSERT INTO "QR" (name, lastname, email, phone, "confirmationUrl", "qrImage", "createdAt", "updatedAt")
+        VALUES ($1, $2, $3, $4, $5, $6, NOW(), NOW())
+        RETURNING *;
+      `;
+      const values = [name, lastname, email, phone, confirmationUrl, qrImage];
 
-      // Mostrar QR y enlace de confirmación
+      const result = await pool.query(query, values);
+
       res.send(`
         <h2>QR generado para ${name} ${lastname}</h2>
         <p>Teléfono: ${phone}</p>
@@ -150,11 +147,12 @@ app.post('/generate', (req, res) => {
         <a href="${confirmationUrl}">Página de confirmación</a>
       `);
     } catch (error) {
-      // console.error('Error al guardar en la base de datos', error);
+      console.error('Error al guardar en la base de datos', error);
       res.status(500).send('Error al generar el QR');
     }
   });
 });
+
 
 // Ruta de confirmación
 app.get('/confirm', (req, res) => {
@@ -242,15 +240,18 @@ app.get('/confirm', (req, res) => {
 });
 
 // Nuevo endpoint para obtener todos los registros desde la base de datos
+// Nuevo endpoint para obtener todos los registros desde la base de datos usando Pool
 app.get('/users', async (req, res) => {
   try {
-    // const users = await QRModel.findAll();
-    // res.json(users);
-    res.status(200).send('Datos no disponibles en este momento');
+    const query = 'SELECT * FROM "QR"';
+    const result = await pool.query(query);
+    res.json(result.rows);
   } catch (err) {
+    console.error('Error al obtener los datos:', err);
     res.status(500).send('Error al obtener los datos');
   }
 });
+
 
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
