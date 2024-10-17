@@ -164,11 +164,66 @@ app.post('/generate', (req, res) => {
       const result = await pool.query(query, values);
       console.log('Registro insertado:', result.rows[0]);  // Mostrar el registro insertado
       res.send(`
-        <h2>QR generado para ${name} ${lastname}</h2>
-        <p>Teléfono: ${phone}</p>
-        <img src="${qrImage}" /><br>
-        <a href="${confirmationUrl}">Página de confirmación</a>
+        <html>
+          <head>
+            <title>QR Generado</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                background-color: #f9f9f9;
+                margin: 0;
+                padding: 20px;
+              }
+              .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                text-align: center;
+              }
+              h2 {
+                color: #333;
+              }
+              p {
+                font-size: 16px;
+                color: #666;
+              }
+              img {
+                margin: 20px 0;
+                border: 2px solid #ddd;
+                border-radius: 8px;
+                max-width: 100%;
+                height: auto;
+              }
+              a {
+                display: inline-block;
+                padding: 10px 15px;
+                margin-top: 15px;
+                background-color: #007bff;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+              }
+              a:hover {
+                background-color: #0056b3;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h2>QR generado para ${name} ${lastname}</h2>
+              <p>Teléfono: ${phone}</p>
+              <img src="${qrImage}" alt="QR Code" />
+              <br>
+              <a href="${confirmationUrl}">Página de confirmación</a>
+            </div>
+          </body>
+        </html>
       `);
+      
     } catch (error) {
       console.error('Error al guardar en la base de datos:', error);
       res.status(500).send('Error al generar el QR');
