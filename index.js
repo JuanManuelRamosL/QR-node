@@ -1,7 +1,7 @@
 const express = require('express');
 const QRCode = require('qrcode');
 const bodyParser = require('body-parser');
-const { QRModel } = require('./db');  // Importamos el modelo y la conexión a la base de datos
+// const { QRModel } = require('./db');  // Importamos el modelo y la conexión a la base de datos
 const cors = require('cors');  // Importa el paquete cors
 const app = express();
 const port = 3000;
@@ -9,6 +9,7 @@ const port = 3000;
 // Middleware para manejar datos de formularios
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors()); 
+
 // Ruta para mostrar el formulario
 app.get('/', (req, res) => {
   res.send(`
@@ -35,14 +36,14 @@ app.post('/generate', (req, res) => {
 
     try {
       // Guardar en la base de datos
-      const newQRRecord = await QRModel.create({
-        name,
-        lastname,
-        email,
-        phone,
-        confirmationUrl,
-        qrImage // Guardamos la imagen del QR como base64
-      });
+      // const newQRRecord = await QRModel.create({
+      //   name,
+      //   lastname,
+      //   email,
+      //   phone,
+      //   confirmationUrl,
+      //   qrImage // Guardamos la imagen del QR como base64
+      // });
 
       // Mostrar QR y enlace de confirmación
       res.send(`
@@ -52,8 +53,8 @@ app.post('/generate', (req, res) => {
         <a href="${confirmationUrl}">Página de confirmación</a>
       `);
     } catch (error) {
-      console.error('Error al guardar en la base de datos', error);
-      res.status(500).send('Error al guardar en la base de datos');
+      // console.error('Error al guardar en la base de datos', error);
+      res.status(500).send('Error al generar el QR');
     }
   });
 });
@@ -67,8 +68,9 @@ app.get('/confirm', (req, res) => {
 // Nuevo endpoint para obtener todos los registros desde la base de datos
 app.get('/users', async (req, res) => {
   try {
-    const users = await QRModel.findAll();
-    res.json(users);
+    // const users = await QRModel.findAll();
+    // res.json(users);
+    res.status(200).send('Datos no disponibles en este momento');
   } catch (err) {
     res.status(500).send('Error al obtener los datos');
   }
