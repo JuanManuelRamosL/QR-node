@@ -27,7 +27,7 @@ app.post('/generate', (req, res) => {
   const { name, lastname, email, phone } = req.body;
 
   // URL de confirmación con nombre y apellido de la persona
-  const confirmationUrl = `http://localhost:${port}/confirm?name=${encodeURIComponent(name)}&lastname=${encodeURIComponent(lastname)}`;
+  const confirmationUrl = `https://qr-node-juanmanuels-projects-d39dfb8d.vercel.app/confirm?name=${encodeURIComponent(name)}&lastname=${encodeURIComponent(lastname)}`;
 
   // Generar el código QR
   QRCode.toDataURL(confirmationUrl, (err, qr) => {
