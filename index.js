@@ -275,6 +275,27 @@ app.get('/users', async (req, res) => {
   }
 });
 
+// Ruta para eliminar un usuario por ID
+app.delete('/delete/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const query = 'DELETE FROM "QR" WHERE id = $1 RETURNING *;';
+    const values = [id];
+
+    const result = await pool.query(query, values);
+
+    if (result.rowCount === 0) {
+      return res.status(404).send('Usuario no encontrado');
+    }
+
+    res.send(`Usuario con ID ${id} eliminado exitosamente`);
+  } catch (error) {
+    console.error('Error al eliminar el usuario:', error);
+    res.status(500).send('Error al eliminar el usuario');
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
