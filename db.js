@@ -42,7 +42,7 @@ const QRModel = sequelize.define('QR', {
   });
   
   // Sincronización del modelo con la base de datos (crea la tabla si no existe)
-  sequelize.sync({ alter: true })  // Esto actualizará la tabla si hay diferencias
+  sequelize.sync({ alter: false })  // Esto actualizará la tabla si hay diferencias
   .then(() => {
     console.log('Base de datos sincronizada');
   })
