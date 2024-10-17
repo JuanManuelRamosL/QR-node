@@ -5,11 +5,25 @@ const bodyParser = require('body-parser');
 const cors = require('cors');  // Importa el paquete cors
 const app = express();
 const port = 3000;
-
+const { Pool } = require('pg');
 // Middleware para manejar datos de formularios
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors()); 
+const pool = new Pool({
+  connectionString: 'postgresql://qr_xvyw_user:knhHWw5z0rmWK26raYOEaK2O3stJGrkz@dpg-cs880968ii6s73c5mm70-a.oregon-postgres.render.com/qr_xvyw',
+  ssl: {
+    require: true,
+    rejectUnauthorized: false
+  }
+});
 
+pool.connect((err, client, release) => {
+  if (err) {
+    return console.error('Error al conectar con la base de datos:', err);
+  }
+  console.log('Conexión exitosa a PostgreSQL');
+  release();  // liberar el cliente
+});
 // Ruta para mostrar el formulario
 app.get('/', (req, res) => {
   res.send(`
