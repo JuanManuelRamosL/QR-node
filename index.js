@@ -24,6 +24,30 @@ pool.connect((err, client, release) => {
   console.log('Conexión exitosa a PostgreSQL');
   release();  // liberar el cliente
 });
+
+// Crear tabla "QR" si no existe
+const createTableQuery = `
+  CREATE TABLE IF NOT EXISTS "QR" (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    lastname VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(20),
+    "confirmationUrl" TEXT,
+    "qrImage" TEXT,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+    "updatedAt" TIMESTAMP NOT NULL DEFAULT NOW()
+  );
+`;
+
+// Ejecutar la creación de la tabla si no existe
+pool.query(createTableQuery)
+  .then(() => {
+    console.log('Tabla "QR" verificada/creada');
+  })
+  .catch((error) => {
+    console.error('Error al crear la tabla:', error);
+  });
 // Ruta para mostrar el formulario
 app.get('/', (req, res) => {
   res.send(`
@@ -121,7 +145,6 @@ app.get('/', (req, res) => {
 
 
 // Ruta para generar el QR
-// Ruta para generar el QR y guardar en la base de datos usando Pool
 app.post('/generate', (req, res) => {
   const { name, lastname, email, phone } = req.body;
 
@@ -139,7 +162,7 @@ app.post('/generate', (req, res) => {
       const values = [name, lastname, email, phone, confirmationUrl, qrImage];
 
       const result = await pool.query(query, values);
-
+      console.log('Registro insertado:', result.rows[0]);  // Mostrar el registro insertado
       res.send(`
         <h2>QR generado para ${name} ${lastname}</h2>
         <p>Teléfono: ${phone}</p>
@@ -147,7 +170,7 @@ app.post('/generate', (req, res) => {
         <a href="${confirmationUrl}">Página de confirmación</a>
       `);
     } catch (error) {
-      console.error('Error al guardar en la base de datos', error);
+      console.error('Error al guardar en la base de datos:', error);
       res.status(500).send('Error al generar el QR');
     }
   });
