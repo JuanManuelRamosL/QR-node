@@ -13,15 +13,98 @@ app.use(cors());
 // Ruta para mostrar el formulario
 app.get('/', (req, res) => {
   res.send(`
-    <form action="/generate" method="POST">
-      <label>Nombre: <input type="text" name="name" required /></label><br>
-      <label>Apellido: <input type="text" name="lastname" required /></label><br>
-      <label>Email: <input type="email" name="email" required /></label><br>
-      <label>Teléfono: <input type="tel" name="phone" required /></label><br>
-      <button type="submit">Generar QR</button>
-    </form>
+    <html>
+      <head>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+          }
+          .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+          }
+          h1 {
+            color: #4CAF50;
+            font-size: 28px;
+            margin-bottom: 20px;
+          }
+          form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+          label {
+            margin-bottom: 10px;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 300px;
+          }
+          input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+          }
+          button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+          }
+          button:hover {
+            background-color: #45a049;
+          }
+          @media (max-width: 600px) {
+            .container {
+              padding: 20px;
+              width: 90%;
+            }
+            label {
+              font-size: 14px;
+            }
+            input {
+              padding: 8px;
+            }
+            button {
+              font-size: 14px;
+              padding: 8px 16px;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Generar Código QR</h1>
+          <form action="/generate" method="POST">
+            <label>Nombre: <input type="text" name="name" required /></label>
+            <label>Apellido: <input type="text" name="lastname" required /></label>
+            <label>Email: <input type="email" name="email" required /></label>
+            <label>Teléfono: <input type="tel" name="phone" required /></label>
+            <button type="submit">Generar QR</button>
+          </form>
+        </div>
+      </body>
+    </html>
   `);
 });
+
 
 // Ruta para generar el QR
 app.post('/generate', (req, res) => {
