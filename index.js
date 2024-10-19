@@ -311,7 +311,7 @@ app.get('/confirm', (req, res) => {
       </head>
       <body>
         <div class="container">
-          <h1>🎉 Invitación Premium</h1>
+          <h1>Avant Premiere</h1>
           <p>Bienvenido/a, <strong>${name} ${lastname}</strong>.</p>
           <p>Tu entrada ha sido confirmada exitosamente.</p>
           
