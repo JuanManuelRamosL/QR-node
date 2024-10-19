@@ -240,74 +240,81 @@ app.get('/confirm', (req, res) => {
       <head>
         <style>
           body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            color: #333;
+            background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20230613/pngtree-horse-is-standing-in-the-middle-of-the-field-image_2934202.jpg');
+            background-size: cover;
+            background-position: center;
           }
           .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.85); /* Fondo blanco con transparencia */
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             text-align: center;
+            width: 450px; /* Aumentado el ancho */
+            border: 3px solid #FFD700; /* Borde dorado premium */
           }
           h1 {
-            color: #4CAF50;
-            font-size: 24px;
-            margin-bottom: 20px;
+            color: #333;
+            font-size: 36px; /* Aumentado el tamaño de la fuente */
+            margin-bottom: 30px;
+            font-weight: bold;
           }
           p {
-            font-size: 18px;
-            margin-bottom: 10px;
+            font-size: 22px; /* Aumentado el tamaño de la fuente */
+            margin-bottom: 20px;
           }
           .confirm-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
+            background-color: #FFD700; /* Botón dorado premium */
+            color: #fff;
+            padding: 18px 36px; /* Aumentado el tamaño del botón */
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             text-decoration: none;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
+            font-size: 20px; /* Aumentado el tamaño de la fuente */
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
           }
           .confirm-button:hover {
-            background-color: #45a049;
+            background-color: #DAA520;
+            transform: scale(1.05);
           }
           .footer {
-            margin-top: 20px;
+            margin-top: 30px;
             font-size: 14px;
             color: #777;
           }
           @media (max-width: 600px) {
             .container {
-              padding: 15px;
               width: 90%;
+              padding: 40px;
             }
             h1 {
-              font-size: 20px;
+              font-size: 28px;
             }
             p {
-              font-size: 16px;
+              font-size: 18px;
             }
             .confirm-button {
-              font-size: 14px;
+              font-size: 16px;
+              padding: 14px 28px;
             }
           }
         </style>
       </head>
       <body>
         <div class="container">
-          <h1>Confirmación de entrada</h1>
-          <p>Bienvenido/a, ${name} ${lastname}.</p>
-          <p>¡Tu entrada ha sido confirmada exitosamente!</p>
-          <a href="/" class="confirm-button">Volver al inicio</a>
+          <h1>🎉 Invitación Premium</h1>
+          <p>Bienvenido/a, <strong>${name} ${lastname}</strong>.</p>
+          <p>Tu entrada ha sido confirmada exitosamente.</p>
+          
           <div class="footer">
             <p>&copy; 2024 Confirmación de Eventos</p>
           </div>
@@ -316,6 +323,7 @@ app.get('/confirm', (req, res) => {
     </html>
   `);
 });
+
 
 // Nuevo endpoint para obtener todos los registros desde la base de datos
 // Nuevo endpoint para obtener todos los registros desde la base de datos usando Pool
