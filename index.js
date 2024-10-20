@@ -247,7 +247,7 @@ app.get('/confirm', (req, res) => {
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: url('https://drive.google.com/drive/folders/1zEPBXmK72IqC8f0dVIp30HO6ScjRbeoq');
+            background-image: url('portada1.jpg');
             background-size: cover;
             background-position: center;
           }
