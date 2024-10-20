@@ -247,7 +247,7 @@ app.get('/confirm', (req, res) => {
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20230613/pngtree-horse-is-standing-in-the-middle-of-the-field-image_2934202.jpg');
+            background-image: url('https://drive.google.com/drive/folders/1zEPBXmK72IqC8f0dVIp30HO6ScjRbeoq');
             background-size: cover;
             background-position: center;
           }
