@@ -247,7 +247,7 @@ app.get('/confirm', (req, res) => {
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: url('public\PORTADA1.jpg');
+            background-image: url('https://matungo.netlify.app/3-CONTRATAPAconMARGEN.jpg');
             background-size: cover;
             background-position: center;
           }
