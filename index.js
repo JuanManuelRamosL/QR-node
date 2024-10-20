@@ -247,7 +247,7 @@ app.get('/confirm', (req, res) => {
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: url('portada1.jpg');
+            background-image: url('/PORTADA1.jpg');
             background-size: cover;
             background-position: center;
           }
